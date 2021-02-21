@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "cross-account-tgw-owner"
+    bucket = "foobar-owner"
     key    = "terraform.tfstate"
     region = "ap-northeast-1"
   }
