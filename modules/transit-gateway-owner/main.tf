@@ -40,5 +40,5 @@ resource "aws_ram_principal_association" "tgw" {
 resource "aws_route" "route_tgw" {
   route_table_id         = var.private_rtb_id
   destination_cidr_block = var.user_cidr
-  gateway_id             = aws_ec2_transit_gateway.tgw.id
+  transit_gateway_id     = aws_ec2_transit_gateway.tgw.id
 }

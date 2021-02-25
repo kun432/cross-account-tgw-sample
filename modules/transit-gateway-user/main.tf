@@ -21,5 +21,5 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "example" {
 resource "aws_route" "route_tgw" {
   route_table_id         = var.private_rtb_id
   destination_cidr_block = var.owner_cidr
-  gateway_id             = data.aws_ec2_transit_gateway.tgw.id
+  transit_gateway_id     = data.aws_ec2_transit_gateway.tgw.id
 }
