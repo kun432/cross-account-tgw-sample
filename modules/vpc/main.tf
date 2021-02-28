@@ -17,6 +17,7 @@ resource "aws_subnet" "subnet_public_1c" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 0)
   availability_zone = "ap-northeast-1c"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "${var.stage}-subnet-public-1c"
@@ -27,32 +28,52 @@ resource "aws_subnet" "subnet_public_1d" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
   availability_zone = "ap-northeast-1d"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "${var.stage}-subnet-public-1d"
   }
 }
 
-resource "aws_subnet" "subnet_private_1c" {
+resource "aws_subnet" "subnet_private_1c_1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 2)
   availability_zone = "ap-northeast-1c"
 
   tags = {
-    Name = "${var.stage}-subnet-private-1c"
+    Name = "${var.stage}-subnet-private-1c-1"
   }
 }
 
-resource "aws_subnet" "subnet_private_1d" {
+resource "aws_subnet" "subnet_private_1d_1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 3)
   availability_zone = "ap-northeast-1d"
 
   tags = {
-    Name = "${var.stage}-subnet-private-1d"
+    Name = "${var.stage}-subnet-private-1d-1"
   }
 }
 
+resource "aws_subnet" "subnet_private_1c_2" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 4)
+  availability_zone = "ap-northeast-1c"
+
+  tags = {
+    Name = "${var.stage}-subnet-private-1c-2"
+  }
+}
+
+resource "aws_subnet" "subnet_private_1d_2" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 5)
+  availability_zone = "ap-northeast-1d"
+
+  tags = {
+    Name = "${var.stage}-subnet-private-1d-2"
+  }
+}
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
@@ -91,16 +112,25 @@ resource "aws_route_table" "rtb_private" {
   }
 }
 
-resource "aws_route_table_association" "rtb_assoc_private_1c" {
+resource "aws_route_table_association" "rtb_assoc_private_1c_1" {
   route_table_id = aws_route_table.rtb_private.id
-  subnet_id      = aws_subnet.subnet_private_1c.id
+  subnet_id      = aws_subnet.subnet_private_1c_1.id
 }
 
-resource "aws_route_table_association" "rtb_assoc_private_1d" {
+resource "aws_route_table_association" "rtb_assoc_private_1d_1" {
   route_table_id = aws_route_table.rtb_private.id
-  subnet_id      = aws_subnet.subnet_private_1d.id
+  subnet_id      = aws_subnet.subnet_private_1d_1.id
 }
 
+resource "aws_route_table_association" "rtb_assoc_private_1c_2" {
+  route_table_id = aws_route_table.rtb_private.id
+  subnet_id      = aws_subnet.subnet_private_1c_2.id
+}
+
+resource "aws_route_table_association" "rtb_assoc_private_1d_2" {
+  route_table_id = aws_route_table.rtb_private.id
+  subnet_id      = aws_subnet.subnet_private_1d_2.id
+}
 output vpc_id {
   value = aws_vpc.vpc.id
 }
@@ -111,7 +141,7 @@ output public_subnet_ids {
   value = [aws_subnet.subnet_public_1c.id, aws_subnet.subnet_public_1d.id]
 }
 output private_subnet_ids {
-  value = [aws_subnet.subnet_private_1c.id, aws_subnet.subnet_private_1d.id]
+  value = [aws_subnet.subnet_private_1c_1.id, aws_subnet.subnet_private_1d_1.id]
 }
 output public_route_table_id {
   value = aws_route_table.rtb_public.id
