@@ -1,6 +1,6 @@
 # cross-account-tgw
 
-Organizations環境でクロスアカウントのVPCをTransit Gatewayで接続するTerraformサンプルです。
+Organizations環境（リソース共有有効）でクロスアカウントのVPCをTransit Gatewayで接続するTerraformサンプルです。
 
 ## Usage
 
