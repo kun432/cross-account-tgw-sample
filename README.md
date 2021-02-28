@@ -1,6 +1,6 @@
 # cross-account-tgw
 
-クロスアカウントのVPCをTransit Gatewayで接続するTerraformサンプルです。
+Organizations環境でクロスアカウントのVPCをTransit Gatewayで接続するTerraformサンプルです。
 
 ## Usage
 
@@ -80,6 +80,7 @@ $ terraform init
 $ terraform apply
 ```
 
-## ToDo
+プライベートサブネットにEC2インスタンスを適当に立てて疎通確認してください。なお、
 
-- [ ] securty groupの追加
+- EC2インスタンスへのログインは、Session Managerを使えば良いと思います。そのためのVPCエンドポイントは作成してます。
+- ただし、IAMロールは作成していません。Systems Manager Quick Setupで作成されるAmazonSSMRoleForInstancesQuickSetupを使えば良いかと思います。
